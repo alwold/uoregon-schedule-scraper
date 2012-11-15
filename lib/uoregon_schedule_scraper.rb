@@ -10,9 +10,9 @@ class UoregonScheduleScraper
       return nil
     end
     rows = results_table.xpath("tr")
-    name = rows[0].xpath("td/b").text
+    name = rows[0].xpath("td/b").text.strip
     cells = rows[6].xpath("td")
-    schedule = cells[5] << " " << cells[4]
+    schedule = cells[5].text.strip << " " << cells[4].text.strip
     if name != nil
       UoregonClassInfo.new(name, schedule)
     else
