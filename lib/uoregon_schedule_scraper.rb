@@ -1,12 +1,13 @@
 require 'net/http'
 require 'nokogiri'
+require 'ruby-debug'
 require_relative 'uoregon_class_info'
 
 class UoregonScheduleScraper
   def get_class_info(term_code, class_number)
     doc = fetch_info(term_code, class_number)
     results_table = doc.xpath("//table[@class='datadisplaytable']")
-    if results_table.nil?
+    if results_table.empty?
       return nil
     end
     rows = results_table.xpath("tr")
@@ -23,7 +24,7 @@ class UoregonScheduleScraper
   def get_class_status(term_code, class_number)
     doc = fetch_info(term_code, class_number)
     results_table = doc.xpath("//table[@class='datadisplaytable']")
-    if results_table.nil?
+    if results_table.empty?
       return nil
     end
     rows = results_table.xpath("tr")
