@@ -14,7 +14,6 @@ describe UoregonScheduleScraper do
   it "loads class info" do
     s = UoregonScheduleScraper.new
     info = s.get_class_info('201203', '31481')
-    # TODO get the scraper to get rid of these weird spaces
     info.name.should eq("ART 115 Surface, Space, & Time")
     info.schedule.should eq("t 1200-1350")
   end
