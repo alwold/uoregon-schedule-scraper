@@ -12,7 +12,7 @@ class UoregonScheduleScraper
     end
     rows = results_table.xpath("tr")
     name = rows[0].xpath("td/b").text.strip
-    cells = rows[6].xpath("td")
+    cells = rows[5].xpath("td")
     schedule = cells[5].text.strip << " " << cells[4].text.strip
     if name != nil
       UoregonClassInfo.new(name, schedule)
@@ -29,7 +29,7 @@ class UoregonScheduleScraper
     end
     rows = results_table.xpath("tr")
     name = rows[0].xpath("td/b").text
-    cells = rows[6].xpath("td")
+    cells = rows[5].xpath("td")
     open_seats = cells[2].text.to_i
     if open_seats == 0
       :closed
