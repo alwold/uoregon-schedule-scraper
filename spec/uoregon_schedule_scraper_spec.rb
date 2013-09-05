@@ -14,15 +14,16 @@ describe UoregonScheduleScraper do
   it "loads class info" do
     s = UoregonScheduleScraper.new
     info = s.get_class_info('201203', '31481')
-    info.name.should eq("  ART 115   Surface, Space, & Time")
+    # TODO get the scraper to get rid of these weird spaces
+    info.name.should eq("ART 115 Surface, Space, & Time")
     info.schedule.should eq("t 1200-1350")
   end
 
   it "loads more class info" do
     s = UoregonScheduleScraper.new
     info = s.get_class_info('201301', '17787')
-    info.name.should eq("  AAA 408   Wrk Indv Brand Strateg")
-    info.schedule.should eq("  tba")
+    info.name.should eq("AAA 408 Wrk Indv Brand Strateg")
+    info.schedule.should eq("tba")
   end
 
   it "gets nil status for nonexistent class" do

@@ -11,9 +11,11 @@ class UoregonScheduleScraper
       return nil
     end
     rows = results_table.xpath("tr")
-    name = rows[0].xpath("td/b").text.strip
+    name = strip(rows[0].xpath("td/b").text)
     cells = rows[5].xpath("td")
-    schedule = cells[5].text.strip << " " << cells[4].text.strip
+    schedule = strip(cells[5].text)
+    schedule << " " if !schedule.empty?
+    schedule << strip(cells[4].text)
     if name != nil
       UoregonClassInfo.new(name, schedule)
     else
@@ -43,7 +45,7 @@ private
     if node == nil
       nil
     else
-      node.to_s.strip
+      strip(node.to_s)
     end
   end
 
@@ -57,7 +59,11 @@ private
     end
     doc = Nokogiri::HTML(res.body)
     # this somehow makes decoding of entities work (https://twitter.com/#!/tenderlove/status/11489447561)
-#    doc.encoding = "UTF-8"
+    doc.encoding = "UTF-8"
     return doc
+  end
+
+  def strip(str)
+    str.strip.gsub("\u00A0", "")
   end
 end
