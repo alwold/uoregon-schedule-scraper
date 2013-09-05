@@ -8,7 +8,7 @@ describe UoregonScheduleScraper do
 
   it "shows closed class as closed" do
     s = UoregonScheduleScraper.new
-    s.get_class_status('201301', '17787').should eq(:closed)
+    s.get_class_status('201301', '17554').should eq(:closed)
   end
 
   it "loads class info" do
