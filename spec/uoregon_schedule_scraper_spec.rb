@@ -9,6 +9,8 @@ describe UoregonScheduleScraper do
   it "loads class info" do
     s = UoregonScheduleScraper.new
     info = s.get_class_info('201203', '31481')
+    info.name.should eq("Surface, Space, & Time")
+    info.schedule.should eq("t 1200-1350")
   end
 
   it "shows another closed class as closed" do
