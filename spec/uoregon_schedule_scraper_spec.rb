@@ -11,12 +11,14 @@ describe UoregonScheduleScraper do
   end
   it "shows open class as open" do
     s = UoregonScheduleScraper.new
-    s.get_class_status('201203', '31481').should eq(:open)
+    open = get_class(get_current_term, :open)
+    s.get_class_status(open.term_code, open.crn).should eq(:open)
   end
 
   it "shows closed class as closed" do
     s = UoregonScheduleScraper.new
-    s.get_class_status('201301', '17554').should eq(:closed)
+    closed = get_class(get_current_term, :closed)
+    s.get_class_status(closed.term_code, closed.crn).should eq(:closed)
   end
 
   it "loads class info" do
