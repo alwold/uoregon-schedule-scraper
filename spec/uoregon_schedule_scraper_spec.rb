@@ -1,6 +1,14 @@
 require 'uoregon_schedule_scraper'
+require 'uoregon_spec_helpers'
+
+RSpec.configure do |config|
+  config.include UoregonSpecHelpers
+end
 
 describe UoregonScheduleScraper do
+  it "can get current term" do
+    expect(get_current_term.length).to eq(6)
+  end
   it "shows open class as open" do
     s = UoregonScheduleScraper.new
     s.get_class_status('201203', '31481').should eq(:open)
