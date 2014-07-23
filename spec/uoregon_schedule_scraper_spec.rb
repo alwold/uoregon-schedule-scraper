@@ -9,6 +9,13 @@ describe UoregonScheduleScraper do
   it "can get current term" do
     expect(get_current_term.length).to eq(6)
   end
+  it "can get a current class" do
+    open = get_class(get_current_term, :open)
+    expect(open.crn.length).to eq(5)
+    closed = get_class(get_current_term, :closed)
+    expect(closed.crn.length).to eq(5)
+  end
+
   it "shows open class as open" do
     s = UoregonScheduleScraper.new
     open = get_class(get_current_term, :open)

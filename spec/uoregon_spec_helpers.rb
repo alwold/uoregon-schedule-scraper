@@ -22,18 +22,21 @@ module UoregonSpecHelpers
     doc = Nokogiri::HTML(res.body)
     class_rows = doc.xpath("//table/tr[td[@class='dddefault']]")
     class_rows.each do |row|
-      crn = row.xpath('td')[1].text
-      seats = row.xpath('td')[2].text.to_i
-      if status == :open && seats > 0
-        ci = ClassInfo.new
-        ci.term_code = term
-        ci.crn = crn
-        return ci
-      elsif status == :closed && seats == 0
-        ci = ClassInfo.new
-        ci.term_code = term
-        ci.crn = crn
-        return ci
+      # skip rows that aren't a full 9 columns, they are probably a continuation of rows above
+      if row.xpath('td').length == 9
+        crn = row.xpath('td')[1].text
+        seats = row.xpath('td')[2].text.to_i
+        if status == :open && seats > 0
+          ci = ClassInfo.new
+          ci.term_code = term
+          ci.crn = crn
+          return ci
+        elsif status == :closed && seats == 0
+          ci = ClassInfo.new
+          ci.term_code = term
+          ci.crn = crn
+          return ci
+        end
       end
     end
     nil
